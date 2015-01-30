@@ -5,6 +5,7 @@
         header("Location: login.php");
         die("Redirecting to login.php"); 
     }
+
 ?>
 
 <!doctype html>
@@ -47,7 +48,7 @@
 
 <div class="container hero-unit">
     <h2>Hello <?php echo htmlentities($_SESSION['user']['username'], ENT_QUOTES, 'UTF-8'); ?>, Welcome to the Dashboard.</h2>
-    
+   
       <ul>
         <li><a href="clients.php">Clients</a></li>
 
