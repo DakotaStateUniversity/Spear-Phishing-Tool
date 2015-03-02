@@ -1,8 +1,8 @@
 <?php 
 
     // These variables define the connection information for your MySQL database 
-    $username = "root"; 
-    $password = "toor"; 
+    $username = "wordpress"; 
+    $password = "wppass"; 
     $host = "localhost"; 
     $dbname = "spearfish"; 
     

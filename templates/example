@@ -1,0 +1,107 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Campaign Page</title>
+    <meta name="description" content="Register an Account">
+    <meta name="author" content="dsu.edu">
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script src="assets/bootstrap.min.js"></script>
+    <link href="assets/bootstrap.min.css" rel="stylesheet" media="screen">
+    <style type="text/css">
+        body { background: url(assets/bglight.png); }
+        .hero-unit { background-color: #fff; }
+        .center { display: block; margin: 0 auto; }
+    </style>
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top navbar-inverse">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <a class="brand">DSU Spearphishing</a>
+      <div class="nav-collapse">
+        <ul class="nav pull-right">
+          <li><a href="login.php">Return Home</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container hero-unit">
+    <h1>Campaign</h1> <br /><br />
+	<form action="campaign.php" method="post"> 
+
+
+	<table class="auto-style1">
+        <tr>
+            <td>Client</td>
+            <td>Description</td>
+		<td>Active</td>
+		<td>Emails</td>
+		<td>Actions</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+		<td>&nbsp;</td>
+            <td>&nbsp;</td>
+		<td>&nbsp;</td>
+            
+        </tr>
+	
+    </table>
+	
+	</form>
+    <form action="campaign.php" method="post"> 
+    
+<!-- Modal to access New campaign form -->
+<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+  New Campaign
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+	    <label>Username: <strong style="color:darkred;">*</strong></label> 
+        <input type="text" name="username" value="" /> 
+        <label>Email: <strong style="color:darkred;">*</strong></label> 
+        <input type="text" name="email" value="" /> 
+        <label>Password: <strong style="color:darkred;">*</strong></label> 
+        <input type="password" name="password" value="" /> <br /><br />
+        <input type="submit" class="btn btn-info" value="Register" />
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div> 
+    </form>
+
+</div>
+
+
+
+
+
+
+</body>
+</html>
