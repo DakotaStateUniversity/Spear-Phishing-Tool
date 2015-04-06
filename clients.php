@@ -48,8 +48,18 @@
   </div>
 </div>
 
+
+
 <div class="container hero-unit">
-    <h2><?php echo htmlentities($_SESSION['user']['username'], ENT_QUOTES, 'UTF-8'); ?> Clients</h2>
+    <h2> Clients</h2>
+
+	  <ul class="nav nav-pills">
+        <li><a href="clients.php">Clients</a></li>
+	<li><a href="manage.php">Manage Lists</a></li>
+        <li><a href="campaign.php">Manage Campaign</a></li>
+        <li><a href="results.php">View Results</a></li>
+        </ul>
+
             <?php
       
       $insert_Name = $_POST['Name'];
@@ -61,8 +71,8 @@ if(!empty($insert_Name) && !empty($insert_Location)){
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 
-    $sql = "INSERT INTO clients (name, location)
-    VALUES ('".$insert_Name."', '".$insert_Location."')";
+   $sql = "INSERT INTO clients (name, location, user_id)
+    VALUES ('".$insert_Name."', '".$insert_Location."', (SELECT id FROM users WHERE username = '".$_SESSION ['user']['username']."') )";
     
     $conn->exec($sql);
     }
@@ -74,7 +84,10 @@ catch(PDOException $e)
 $conn = null;
 }
 ?>
+
+
 <form action="clients.php" method="post"> 
+
                     Name:
                     <input type="text" name="Name" value="" /> 
                     
@@ -82,7 +95,7 @@ $conn = null;
                     <input type="text" name="Location" value="" /> 
                     
                     <input type="submit" value="Insert" /> 
-                </form> 
+</form> 
 
    
      <?php
@@ -126,6 +139,8 @@ catch(PDOException $e) {
 $conn = null;
 echo "</table>";
 ?> 
+
+
 </div>
 
 </body>

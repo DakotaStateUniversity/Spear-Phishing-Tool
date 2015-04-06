@@ -14,10 +14,10 @@ global $dbh;
   	if ($dh = opendir($dir)) { 
        	while (($file = readdir($dh)) !== false)
 	{ 
-        print "<option value=\"{$file}\">{$file}</option>"; 
+       $var = print"<option value=\"{$file}\">{$file}</option>"; 
        	} 
        closedir($dh); 
   		 } 
-} 
+} 	return $var;
 }
 ?>

@@ -1,14 +1,13 @@
 <?php
-
-    	
     require("config.php");
     if(empty($_SESSION['user'])) 
     {
         header("Location: login.php");
         die("Redirecting to login.php"); 
     }
-
+    
 ?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -48,43 +47,10 @@
     </div>
   </div>
 </div>
+
 <div class="container hero-unit">
-    <h2>Hello <?php echo htmlentities($_SESSION['user']['username'], ENT_QUOTES, 'UTF-8'); ?>, Welcome to Practice Page.</h2>
-   
-      <ul>
-        <li><a href="clients.php">Clients</a></li>
-	<li><a href="manage.php">Manage Lists</a></li>
-        <li><a href="campaign.php">Manage Campaign</a></li>
-        <li><a href="results.php">View Results</a></li>
-
-        </ul>
-
-    <br /><br />
-<!--
-#First modal lets you create new client
- 
--->
-	<h2>Create Client</h2>
-
-
-	<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-  	+New Client
-	</button>
-
-
-<form action="" method="post"> 
-<!-- Modal -->
-<div class="modal hide fade in" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">New Client</h4>
-      </div>
-      <div class="modal-body">
-
-	
-<?php
+    <h2><?php echo htmlentities($_SESSION['user']['username'], ENT_QUOTES, 'UTF-8'); ?> Clients</h2>
+            <?php
       
       $insert_Name = $_POST['Name'];
       $insert_Location = $_POST['Location'];
@@ -95,8 +61,8 @@ if(!empty($insert_Name) && !empty($insert_Location)){
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 
-   $sql = "INSERT INTO clients (name, location, user_id)
-    VALUES ('".$insert_Name."', '".$insert_Location."', (SELECT id FROM users WHERE username = '".$_SESSION ['user']['username']."') )";
+    $sql = "INSERT INTO clients (name, location)
+    VALUES ('".$insert_Name."', '".$insert_Location."')";
     
     $conn->exec($sql);
     }
@@ -108,36 +74,59 @@ catch(PDOException $e)
 $conn = null;
 }
 ?>
-<label>Client Name</label>
-<input type="text" name="Name" value="" /><br /> 
-<label>Client Location</label>
-<input type="text" name="Location" value="" /> <br />
+<form action="clients.php" method="post"> 
+                    Name:
+                    <input type="text" name="Name" value="" /> 
+                    
+                    Location:
+                    <input type="text" name="Location" value="" /> 
+                    
+                    <input type="submit" value="Insert" /> 
+                </form> 
 
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+   
+     <?php
+echo "<table style='border: solid 1px black;'>";
+echo "<tr><th>Name</th><th>Location</th></tr>";
 
-	    <?php if ($_POST['submit']) 
-{
+class TableRows extends RecursiveIteratorIterator {
+    function __construct($it) {
+        parent::__construct($it, self::LEAVES_ONLY);
+    }
+
+    function current() {
+        return "<td style='width:150px;'>" . parent::current(). "</td>";
+    }
+
+    function beginChildren() {
+        echo "<tr>";
+    }
+
+    function endChildren() {
+        echo "</tr>" . "\n";
+    }
 }
 
-  
-		?>
-        <button type="submit" name="submit" class="btn btn-primary">Send</button>
-      </div>
-    </div>
-  </div>
-</div> 
-    
-		
 
-   </form>
-	
+try {
+    $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $stmt = $conn->prepare("SELECT name, location FROM clients");
+    $stmt->execute();
 
-
-
-
+    // set the resulting array to associative
+    $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    foreach(new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k=>$v) {
+        echo $v;
+    }
+}
+catch(PDOException $e) {
+    echo "Error: " . $e->getMessage();
+}
+$conn = null;
+echo "</table>";
+?> 
 </div>
-</div>
+
 </body>
 </html>

@@ -23,10 +23,15 @@
         body { background: url(assets/bglight.png); }
         .hero-unit { background-color: #fff; }
         .center { display: block; margin: 0 auto; }
+	#sm {
+		width: 75px;
+		}
+	
     </style>
 </head>
 
 <body>
+
 
 <div class="navbar navbar-fixed-top navbar-inverse">
   <div class="navbar-inner">
@@ -39,8 +44,7 @@
       <a class="brand">DSU Spearphishing</a>
       <div class="nav-collapse">
         <ul class="nav pull-right">
-          <li><a href="dashboard.php">Dashboard</a></li>
-          <li class="divider-vertica"></li>
+	<li><a href="dashboard.php">Dashboard</a></li>
           <li><a href="logout.php">Log Out</a></li>
         </ul>
       </div>
@@ -48,30 +52,93 @@
   </div>
 </div>
 
+
+
+<!--Table for viewing campaign results-->
+
 <div class="container hero-unit">
-    <h2>
-<?php echo htmlentities($_SESSION['user']['username'], ENT_QUOTES, 'UTF-8'); ?> Clients</h2>
-            <?php
-   $option = isset($_POST['clients']) ? $_POST['clients'] : false;
-   if($option) {
-      echo htmlentities($_POST['clients'], ENT_QUOTES, "UTF-8");
-   } else {
-     echo "task option is required";
-     exit; 
-   }
-      ?>
- <?php
-   $option = isset($_POST['Gname']) ? $_POST['Gname'] : false;
-   if($option) {
-      echo htmlentities($_POST['Gname'], ENT_QUOTES, "UTF-8");
-   } else {
-     echo "task option is required";
-     exit; 
-   }
-      ?>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="well">
+<!--create a search function for table -->
+<div class="col-sm-6">
+<div class="col-sm-6"></div>
+<div id="example_filter" class="dataTables_filter">
+
+</div>
+</div>
+
+
+<h2 class="text-center">Phishing Results</h2>
+			<hr width="25%">
+<table id="myTable" class="table table-striped">
+    <thead>
+      <tr>
+	<th width="3%" align="left">ID</th>
+	<th width="10%" align="left">clients name</th>
+	<th width="10%" align="left">fname</th>
+       	<th width="10%" align="left">lname</th>
+	<th width="10%" align="left">email</th>
+	
+       	
+     </tr>
+    </thead>
+    <tbody>
+<?php
+
+
+	
+	$sql = "SELECT * FROM contacts INNER JOIN clients ON contacts.client_id = clients.id 
+		INNER JOIN campaigns ON clients.id = campaigns.client_id"; 
+
+
+	$stmt = $db->prepare($sql);
+
+	$stmt->execute();
+
+	$results = $stmt->fetchAll();
+
+	
+
+	foreach($results as $row) 
+
+ {
+echo ' <tr> ';
+echo ' <td> ';
+echo $row['id'];
+echo ' <td> ';
+echo $row['name'];
+echo ' <td> ';
+echo $row['fname'];
+echo ' <td> ';
+echo $row['lname'];
+echo ' <td> ';
+echo $row['email'];
+
+
+
+}
+
+?>
+  </tbody>
+  </table>
+
+</div>
+</div>
+</div>
+</div>
+
+</form>
+
+
 
 
 
 
 </body>
 </html>
+
+
+
+
+

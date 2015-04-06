@@ -1,28 +1,29 @@
 <?php
-
-    	
     require("config.php");
     if(empty($_SESSION['user'])) 
     {
         header("Location: login.php");
         die("Redirecting to login.php"); 
     }
-
+    
 ?>
+
+
+
 <!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Dashboard</title>
-    <meta name="Dashboard Page" content="Dashboard">
-    <meta name="author" content="Dsu.edu">
+    <title>Campaign Page</title>
+    <meta name="description" content="Register an Account">
+    <meta name="author" content="dsu.edu">
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
     <script src="assets/bootstrap.min.js"></script>
     <link href="assets/bootstrap.min.css" rel="stylesheet" media="screen">
     <style type="text/css">
         body { background: url(assets/bglight.png); }
-        .hero-unit { background-color: #fff; }
+        .hero-unit { background-color: #b0c4de; }
         .center { display: block; margin: 0 auto; }
     </style>
 </head>
@@ -40,39 +41,32 @@
       <a class="brand">DSU Spearphishing</a>
       <div class="nav-collapse">
         <ul class="nav pull-right">
-          <li><a href="dashboard.php">Dashboard</a></li>
-          <li class="divider-vertica"></li>
-          <li><a href="logout.php">Log Out</a></li>
+          <li><a href="login.php">Return Home</a></li>
         </ul>
       </div>
     </div>
   </div>
 </div>
-<div class="container hero-unit">
-    <h2>Hello <?php echo htmlentities($_SESSION['user']['username'], ENT_QUOTES, 'UTF-8'); ?>, Welcome to Practice Page.</h2>
-   
-      <ul>
-        <li><a href="clients.php">Clients</a></li>
-	<li><a href="manage.php">Manage Lists</a></li>
-        <li><a href="campaign.php">Manage Campaign</a></li>
-        <li><a href="results.php">View Results</a></li>
+<div>
+<div>
+<br />
+<br />
+		<form action="" method="post"> 
+                    Username:<br /> 
+                    <input type="text" name="username" value="" /> 
+                    <br /><br /> 
+                    Password:<br /> 
+                    <input type="password" name="pwd" value="" /> 
+                    <br /><br /> 
+                    <input type="submit" class="btn btn-info" value="Login" /> 
+                </form>
 
-        </ul>
-
-    <br /><br />
+	
 
 
 
+
+</div>
+</div>
 </body>
-
-  
 </html>
-
-
-
-
-
-
-
-
-
