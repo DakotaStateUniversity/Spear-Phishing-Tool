@@ -1,14 +1,13 @@
 <?php
-
-    	
     require("config.php");
     if(empty($_SESSION['user'])) 
     {
         header("Location: login.php");
         die("Redirecting to login.php"); 
     }
-
+    include("functions.php");
 ?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -49,20 +48,39 @@
   </div>
 </div>
 <div class="container hero-unit">
-    <h2>Hello <?php echo htmlentities($_SESSION['user']['username'], ENT_QUOTES, 'UTF-8'); ?>, Welcome to Practice Page.</h2>
-   
-      <ul>
-        <li><a href="clients.php">Clients</a></li>
-	<li><a href="manage.php">Manage Lists</a></li>
-        <li><a href="campaign.php">Manage Campaign</a></li>
-        <li><a href="results.php">View Results</a></li>
 
-        </ul>
+<?php 
+echo "<select name = 'time'>";
+foreach (range(0,23) as $fullhour) {
+$fullhour2digit = strlen($fullhour)==1 ? '0' . $fullhour : $fullhour;
+$parthour = $fullhour > 12 ? $fullhour - 12 : $fullhour;
+$parthour .= $fullhour > 11 ? ":00 pm" : ":00 am";
+$parthour = $parthour=='0:00 am' ? 'midnight' : $parthour;
+$parthour = $parthour=='12:00 pm' ? 'noon' : $parthour;
 
-    <br /><br />
+$parthalf = $fullhour > 12 ? $fullhour - 12 : $fullhour;
+$parthalf .= $fullhour > 11 ? ":30 pm" : ":30 am";
+
+
+//SHOWS THE TEST FOR 'SELECTED' IN THE OPTION TAG
+     echo '<option ';
+     if (date("H:i:s", strtotime($startdate)) === $fullhour2digit . ':00:00')
+        {echo ' SELECTED ';}
+     echo 'value="' . $fullhour2digit . ':00:00">' .  $parthour . '</option>';
+     echo '<option ';
+     if (date("H:i:s", strtotime($startdate)) === $fullhour2digit  . ':30:00')
+        {echo ' SELECTED ';}
+     echo 'value="' . $fullhour2digit . ':30:00">' .  $parthalf . '</option>';
+}
+"</select>";
+?>
+</select>
 
 
 
+<select name="starttime">
+<option value="00:00:00">midnight</option><option value="00:30:00">0:30 am</option>
+</div>
 </body>
 
   

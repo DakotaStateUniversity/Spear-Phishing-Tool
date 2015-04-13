@@ -20,8 +20,8 @@
     <script src="assets/bootstrap.min.js"></script>
     <link href="assets/bootstrap.min.css" rel="stylesheet" media="screen">
     <style type="text/css">
-        body { background: url(assets/bglight.png); }
-        .hero-unit { background-color: #fff; }
+       body { background: url(assets/bglight.png); }
+        .hero-unit { background-color: lightblue; }
         .center { display: block; margin: 0 auto; }
 	#sm {
 		width: 75px;
@@ -51,12 +51,22 @@
     </div>
   </div>
 </div>
+<div class="container hero-unit">
 
+<h2>Results</h2>
+      <ul class="nav nav-pills">
+        <li><a href="clients.php">Clients</a></li>
+	<li><a href="manage.php">Manage Lists</a></li>
+        <li><a href="campaign.php">Manage Campaign</a></li>
+        <li><a href="results.php">View Results</a></li>
+	<li><a href="">Emails</a></li>
+        </ul>
+</br>
 
 
 <!--Table for viewing campaign results-->
 
-<div class="container hero-unit">
+<div class="container">
 	<div class="row">
 		<div class="col-md-12">
 			<div class="well">
@@ -68,30 +78,33 @@
 </div>
 </div>
 
-
 <h2 class="text-center">Phishing Results</h2>
 			<hr width="25%">
+
 <table id="myTable" class="table table-striped">
     <thead>
       <tr>
-	<th width="3%" align="left">ID</th>
-	<th width="10%" align="left">clients name</th>
-	<th width="10%" align="left">fname</th>
-       	<th width="10%" align="left">lname</th>
+	<th width="3%" align="left">Camp.ID</th>
+	<th width="10%" align="left">Clients name</th>
+	<th width="10%" align="left">First name</th>
+       	<th width="10%" align="left">last name</th>
 	<th width="10%" align="left">email</th>
-	
-       	
+	<th width="10%" align="left">Date Created</th>
+       	<th width="10%" align="left">Clicked</th>
      </tr>
     </thead>
     <tbody>
 <?php
-
-
+	$link = 'results.php';
+	$id = $_GET['cid'];
 	
-	$sql = "SELECT * FROM contacts INNER JOIN clients ON contacts.client_id = clients.id 
-		INNER JOIN campaigns ON clients.id = campaigns.client_id"; 
+	$sql = "SELECT contacts.fname, contacts.lname, contacts.email, clients.id, clients.name, campaigns.id, campaigns.date_created FROM contacts INNER JOIN clients ON contacts.client_id = clients.id 
+		INNER JOIN campaigns ON clients.id = campaigns.client_id WHERE campaigns.id = $id"; 
 
 
+	/*$sql = "SELECT campaigns.id, date_created, client_id, clients.name FROM campaigns INNER JOIN clients ON campaigns.client_id = clients.id WHERE campaigns.id = $id ";*/
+
+		
 	$stmt = $db->prepare($sql);
 
 	$stmt->execute();
@@ -114,7 +127,9 @@ echo ' <td> ';
 echo $row['lname'];
 echo ' <td> ';
 echo $row['email'];
-
+echo ' <td> ';
+echo $row['date_created'];
+echo ' </tr> ';
 
 
 }

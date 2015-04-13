@@ -24,7 +24,7 @@
     <link href="assets/bootstrap.min.css" rel="stylesheet" media="screen">
     <style type="text/css">
         body { background: url(assets/bglight.png); }
-        .hero-unit { background-color: #fff; }
+        .hero-unit { background-color: lightblue; }
         .center { display: block; margin: 0 auto; }
 	#sm {
 		width: 75px;

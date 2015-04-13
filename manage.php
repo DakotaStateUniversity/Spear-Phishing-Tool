@@ -201,7 +201,8 @@ $conn = null;
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 
-  $sql = "INSERT INTO contacts (client_id, fname, lname, email) VALUES (".$_POST['clients'] . ", '".$insert_FName."','".$insert_LName."','".$insert_Email."')";
+  $sql = "INSERT INTO contacts (client_id, fname, lname, email) VALUES (".$_POST['clients'] . ", '".$insert_FName."','".$insert_LName."','".$insert_Email."'); 
+		INSERT INTO sentmail (client_id, email) VALUES (".$_POST['clients'] .", '".$insert_Email."')";
  
 	
     $conn->exec($sql);
@@ -250,7 +251,98 @@ $conn = null;
 
    </form>
 
+<form action="" method="post">
 
+
+<!--Table for viewing campaign results-->
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="well">
+<!--create a search function for table -->
+<div class="col-sm-6">
+<div class="col-sm-6"></div>
+<div id="example_filter" class="dataTables_filter">
+
+</div>
+</div>
+
+<h2 class="text-center">Phishing Results</h2>
+			<hr width="25%">
+
+<table id="myTable" class="table table-striped">
+    <thead>
+      <tr>
+	<th width="3%" align="left">Client.ID</th>
+	<th width="10%" align="left">Clients name</th>
+	<th width="10%" align="left">First name</th>
+       	<th width="10%" align="left">last name</th>
+	<th width="10%" align="left">email</th>
+	<th width="10%" align="left">Delete</th>
+   
+     </tr>
+    </thead>
+    <tbody>
+<?php
+
+	
+
+	$link = 'manage.php';
+	$id = $_GET['cid'];
+	
+	$sql = "SELECT contacts.fname, contacts.lname, contacts.email, contacts.id, clients.name FROM contacts INNER JOIN clients ON contacts.client_id = clients.id 
+		";
+		
+	
+	if(isset($_GET['id']))
+	{
+		$id = $_GET['id'];
+		$query = "DELETE FROM contacts WHERE contacts.id = $id";
+	}
+	/*$sql = "SELECT campaigns.id, date_created, client_id, clients.name FROM campaigns INNER JOIN clients ON campaigns.client_id = clients.id WHERE campaigns.id = $id ";*/
+
+		
+	$stmt = $db->prepare($sql);
+
+	$stmt->execute();
+
+	$results = $stmt->fetchAll();
+
+	
+
+	foreach($results as $row) 
+
+ {
+echo ' <tr> ';
+echo ' <td> ';
+echo $row['id'];
+echo ' <td> ';
+echo $row['name'];
+echo ' <td> ';
+echo $row['fname'];
+echo ' <td> ';
+echo $row['lname'];
+echo ' <td> ';
+echo $row['email'];
+echo ' <td> ';
+echo "<a href='".$link."?cid=". $row['id']."'>Delete</a>";
+echo ' </tr> ';
+
+
+}
+
+?>
+
+  </tbody>
+  </table>
+
+</div>
+</div>
+</div>
+</div>
+
+</form>
 
 </body>
 </html>

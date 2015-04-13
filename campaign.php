@@ -21,8 +21,9 @@
     <script src="assets/bootstrap.min.js"></script>
     <link href="assets/bootstrap.min.css" rel="stylesheet" media="screen">
     <style type="text/css">
-        body { background: url(assets/bglight.png); }
-        .hero-unit { background-color: #fff; }
+        
+	body { background-color: black; }
+        .hero-unit { background-color: lightblue; }
         .center { display: block; margin: 0 auto; }
 	#sm {
 		width: 75px;
@@ -288,8 +289,8 @@ echo ' <td> ';
 echo $row['date_created'];
 echo ' <td> ';
 echo "<a href='".$link."?cid=". $row['id']."'>View Results</a>";
-
-
+echo ' </tr> ';
+$id = $_GET['cid'];
 
 }
 
