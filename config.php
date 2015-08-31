@@ -1,10 +1,10 @@
 <?php 
 
-    // These variables define the connection information for your MySQL database 
-    $username = "wordpress"; 
-    $password = "wppass"; 
-    $host = "localhost"; 
-    $dbname = "spearfish"; 
+    // These variables define the connection information for your MySQL database, enter your credentials
+    $username = ""; 
+    $password = ""; 
+    $host = ""; 
+    $dbname = ""; 
     
     $options = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'); 
     try { $db = new PDO("mysql:host={$host};dbname={$dbname};charset=utf8", $username, $password, $options); } 
